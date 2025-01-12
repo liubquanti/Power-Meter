@@ -1,100 +1,106 @@
 import 'package:flutter/material.dart';
+import 'screens/home.dart';
+import 'screens/camera.dart';
+import 'screens/recorder.dart';
+import 'screens/settings.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(MaterialApp(
+    theme: ThemeData(
+      fontFamily: 'e-Ukraine',
+    ),
+    home: const MainScreen(),
+  ));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        fontFamily: 'e-Ukraine',
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
-      ),
-      home: const MyHomePage(title: 'Потужнометр'),
-    );
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  int _selectedIndex = 0;
+
+  static const List<Color> _screenColors = [
+    Color(0xFFafc6e6),
+    Color(0xFF74b4d8),
+    Color(0xFFdec7d9),
+    Color(0xFFb5d7d8),
+  ];
+
+  Color get _currentColor => _screenColors[_selectedIndex];
+
+  static const List<Widget> _screens = [
+    HomeScreen(title: '<logo3>'),
+    CameraScreen(title: '<logo3>'),
+    RecorderScreen(title: '<logo3>'),
+    SettingsScreen(title: '<logo3>'),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
   }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(60),
-        child: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Center(child: Text(widget.title, style: const TextStyle(fontSize: 30))),
-      ),
-      ),
-      body: Center(
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(230, 70),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                ),
-                onPressed: () {},
-                child: const Text('Перевірити потужність'),
-              ),
-              const SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(70, 70),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                    ),
-                    onPressed: () {},
-                    child: const Text('1'),
-                  ),
-                  const SizedBox(width: 10),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(70, 70),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                    ),
-                    onPressed: () {},
-                    child: const Text('2'),
-                  ),
-                  const SizedBox(width: 10),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(70, 70),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                    ),
-                    onPressed: () {},
-                    child: const Text('3'),
-                  ),
-                ],
-              ),
-            ],
+      backgroundColor: _currentColor,
+      body: _screens[_selectedIndex],
+      bottomNavigationBar: NavigationBar(
+        elevation: 0,
+        indicatorColor: Colors.transparent,
+        overlayColor: WidgetStateProperty.resolveWith<Color>(
+          (_) => Colors.transparent,
+        ),
+        backgroundColor: _currentColor,
+        height: 100,
+        onDestinationSelected: _onItemTapped,
+        selectedIndex: _selectedIndex,
+        destinations: [
+          NavigationDestination(
+            icon: SvgPicture.asset('assets/icons/navbar/house-chimney.svg',
+            height: 25,
+            ),
+            selectedIcon: SvgPicture.asset('assets/icons/navbar/house-chimney-selected.svg',
+            height: 25,
+            ),
+            label: 'Головна',
           ),
+          NavigationDestination(
+            icon: SvgPicture.asset('assets/icons/navbar/photo-capture.svg',
+            height: 25,
+            ),
+            selectedIcon: SvgPicture.asset('assets/icons/navbar/photo-capture-selected.svg',
+            height: 25,
+            ),
+            label: 'Камера',
+          ),
+          NavigationDestination(
+            icon: SvgPicture.asset('assets/icons/navbar/voicemail.svg',
+            height: 25,
+            ),
+            selectedIcon: SvgPicture.asset('assets/icons/navbar/voicemail-selected.svg',
+            height: 25,
+            ),
+            label: 'Мікрофон',
+          ),
+          NavigationDestination(
+            icon: SvgPicture.asset('assets/icons/navbar/menu-burger.svg',
+            height: 25,
+            ),
+            selectedIcon: SvgPicture.asset(
+              'assets/icons/navbar/menu-burger-selected.svg',
+              height: 25,
+            ),
+            label: 'Інше',
+          ),
+        ],
       ),
     );
   }

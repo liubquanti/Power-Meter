@@ -12,6 +12,9 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.8
+  flutter_svg: ^2.0.17
+  camera: ^0.11.0+2
+  permission_handler: ^11.3.1
 
 dev_dependencies:
   flutter_test:
@@ -23,6 +26,17 @@ flutter:
   fonts:
     - family: e-Ukraine
       fonts:
+        - asset: assets/fonts/e-Ukraine-Regular.otf
+        - asset: assets/fonts/e-Ukraine-Medium.otf
+          weight: 500
+        - asset: assets/fonts/e-Ukraine-Bold.otf
+          weight: 700
+        - asset: assets/fonts/e-Ukraine-Light.otf
+          weight: 300
+        - asset: assets/fonts/e-Ukraine-Thin.otf
+          weight: 100
+    - family: e-UkraineHead
+      fonts:
         - asset: assets/fonts/e-UkraineHead-Regular.otf
         - asset: assets/fonts/e-UkraineHead-Medium.otf
           weight: 500
@@ -32,3 +46,18 @@ flutter:
           weight: 300
         - asset: assets/fonts/e-UkraineHead-Thin.otf
           weight: 100
+    - family: e-UkraineLogo
+      fonts:
+        - asset: assets/fonts/e-UkraineHead-LOGO.otf
+    - family: e-UkraineName
+      fonts:
+        - asset: assets/fonts/e-UkraineHead-NAME.otf
+  assets:
+  - assets/icons/navbar/house-chimney.svg
+  - assets/icons/navbar/house-chimney-selected.svg
+  - assets/icons/navbar/photo-capture.svg
+  - assets/icons/navbar/photo-capture-selected.svg
+  - assets/icons/navbar/voicemail.svg
+  - assets/icons/navbar/voicemail-selected.svg
+  - assets/icons/navbar/menu-burger.svg
+  - assets/icons/navbar/menu-burger-selected.svg
