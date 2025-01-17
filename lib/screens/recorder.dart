@@ -51,14 +51,32 @@ class _RecorderScreenState extends State<RecorderScreen> {
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
-                'Останнє вимірювання: 0 Вт',
+              const Center(
+                child: Text(
+                'Потужнометр звуку',
+                style: TextStyle(
+                  fontFamily: 'e-UkraineHead',
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                ),
+                textAlign: TextAlign.center,
+                ),
+              ),
+              const SizedBox(height: 10),
+              const Center(
+                  child: SizedBox(
+                  width: 360,
+                  child: Text(
+                'Затисніть кнопку переіврки, аби зробити запис та дізнатись інформацію про потужність всього, що лунає навколо вас.',
                 style: TextStyle(
                   fontFamily: 'e-Ukraine',
                   color: Colors.black,
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500,
                 ),
+                textAlign: TextAlign.center,
+                ),),
               ),
               const SizedBox(height: 20),
               ElevatedButton(

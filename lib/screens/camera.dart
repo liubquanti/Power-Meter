@@ -136,7 +136,7 @@ class _CameraScreenState extends State<CameraScreen> {
                 child: SizedBox(
                 width: 360,
                 child: Text(
-              'Наведіться на суб\'єкт та натисніть кнопку переіврки, аби дізнатись інформацію про його потужність.',
+              'Наведіться на суб\'єкт та натисніть кнопку переіврки, аби зробити знімок та дізнатись інформацію про його потужність.',
               style: TextStyle(
                 fontFamily: 'e-Ukraine',
                 color: Colors.black,

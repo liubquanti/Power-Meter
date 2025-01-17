@@ -51,6 +51,34 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              const Center(
+                child: Text(
+                'Потужнометр середовища',
+                style: TextStyle(
+                  fontFamily: 'e-UkraineHead',
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                ),
+                textAlign: TextAlign.center,
+                ),
+              ),
+              const SizedBox(height: 10),
+              const Center(
+                  child: SizedBox(
+                  width: 360,
+                  child: Text(
+                'Натисніть кнопку переіврки, аби дізнатись інформацію про потужність навколишнього середовища, в якому ви перебуваєте.',
+                style: TextStyle(
+                  fontFamily: 'e-Ukraine',
+                  color: Colors.black,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500,
+                ),
+                textAlign: TextAlign.center,
+                ),),
+              ),
+              const SizedBox(height: 20),
               const Text(
                 'Останнє вимірювання: 0 Вт',
                 style: TextStyle(
