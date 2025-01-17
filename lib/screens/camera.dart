@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 void main() {
   runApp(const App());
@@ -33,6 +34,7 @@ class CameraScreen extends StatefulWidget {
 class _CameraScreenState extends State<CameraScreen> {
   CameraController? _controller;
   bool _isCameraInitialized = false;
+  bool _isFlashOn = false;
 
   @override
   void initState() {
@@ -70,6 +72,23 @@ class _CameraScreenState extends State<CameraScreen> {
       }
     } catch (e) {
       print('Error initializing camera: $e');
+    }
+  }
+
+  Future<void> _toggleFlash() async {
+    if (_controller != null) {
+      try {
+        if (_isFlashOn) {
+          await _controller!.setFlashMode(FlashMode.off);
+        } else {
+          await _controller!.setFlashMode(FlashMode.torch);
+        }
+        setState(() {
+          _isFlashOn = !_isFlashOn;
+        });
+      } catch (e) {
+        print('Error toggling flash: $e');
+      }
     }
   }
 
@@ -128,37 +147,51 @@ class _CameraScreenState extends State<CameraScreen> {
               ),),
             ),
             const SizedBox(height: 20),
-            Container(
-              width: 350,
-              height: 400,
-              margin: const EdgeInsets.only(bottom: 20),
-              decoration: BoxDecoration(
+            Stack(
+              children: [
+              Container(
+                width: 350,
+                height: 400,
+                margin: const EdgeInsets.only(bottom: 20),
+                decoration: BoxDecoration(
                 color: Colors.black,
                 borderRadius: BorderRadius.circular(20),
-              ),
-              clipBehavior: Clip.hardEdge,
-              child: _isCameraInitialized
+                ),
+                clipBehavior: Clip.hardEdge,
+                child: _isCameraInitialized
                 ? CameraPreview(_controller!)
                 : Center(
-                    child: TweenAnimationBuilder(
-                      tween: Tween<double>(begin: 0.5, end: 1.0),
-                      duration: const Duration(seconds: 1),
-                      builder: (context, value, child) {
-                      return Opacity(
-                        opacity: value, 
-                        child: const Text(
-                            '\u2646',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 40,
-                            fontFamily: 'e-UkraineHead',
-                          ),
-                        ),
-                      );
-                      },
-                      onEnd: () => setState(() {}),
+                  child: TweenAnimationBuilder(
+                    tween: Tween<double>(begin: 0.5, end: 1.0),
+                    duration: const Duration(seconds: 1),
+                    builder: (context, value, child) {
+                    return Opacity(
+                    opacity: value, 
+                    child: const Text(
+                      '\u2646',
+                      style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 40,
+                      fontFamily: 'e-UkraineHead',
+                      ),
                     ),
+                    );
+                    },
+                    onEnd: () => setState(() {}),
                   ),
+                  ),
+              ),
+              Positioned(
+                bottom: 30,
+                right: 10,
+                child: IconButton(
+                onPressed: _toggleFlash,
+                icon: _isFlashOn 
+                    ? SvgPicture.asset('assets/icons/camera/bolt.svg', width: 30, height: 30, colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn))
+                    : SvgPicture.asset('assets/icons/camera/bolt-slash.svg', width: 30, height: 30, colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn)),
+                ),
+              ),
+              ],
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(

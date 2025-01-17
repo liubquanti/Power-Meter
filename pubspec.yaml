@@ -61,3 +61,5 @@ flutter:
   - assets/icons/navbar/voicemail-selected.svg
   - assets/icons/navbar/menu-burger.svg
   - assets/icons/navbar/menu-burger-selected.svg
+  - assets/icons/camera/bolt.svg
+  - assets/icons/camera/bolt-slash.svg
