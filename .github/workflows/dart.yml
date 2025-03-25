@@ -3,7 +3,7 @@ name: Android-Build
 on:
   push:
     branches:
-      - main  # Змінити на потрібну гілку
+      - main
 
 jobs:
   build-android:
@@ -25,6 +25,6 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: build/app/outputs/flutter-apk/app-release.apk
-          tag: latest
+          tag: "v${{ github.run_number }}.0"
           overwrite: true
-          body: "New release from latest commit"
+          body: "Реліз версії #${{ github.run_number }}.0"
