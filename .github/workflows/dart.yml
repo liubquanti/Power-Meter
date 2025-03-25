@@ -1,0 +1,30 @@
+name: Android-Build
+
+on:
+  push:
+    branches:
+      - main  # Змінити на потрібну гілку
+
+jobs:
+  build-android:
+    name: 🤖 Android Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          architecture: x64
+      - run: flutter pub get
+
+      - run: flutter build apk --release
+
+      - name: Upload Android APK to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: build/app/outputs/flutter-apk/app-release.apk
+          tag: latest
+          overwrite: true
+          body: "New release from latest commit"
